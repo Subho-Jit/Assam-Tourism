@@ -1,2 +1,896 @@
-# Assam-Tourism
-This is about our assam.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore Assam | The Land of Red Rivers and Blue Hills</title>
+<meta name="description" content="Discover Assam, India. Explore Kaziranga, Majuli, Kamakhya Temple, tea gardens, wildlife, culture, food and travel itineraries.">
+
+<style>
+:root {
+  --green: #174d36;
+  --dark: #102c22;
+  --gold: #e8b65a;
+  --cream: #faf7ef;
+  --white: #ffffff;
+  --text: #26372f;
+  --muted: #66736b;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  line-height:1.6;
+}
+a { text-decoration:none; color:inherit; }
+button, input, select { font:inherit; }
+button { cursor:pointer; }
+.container { width:min(1150px,92%); margin:auto; }
+nav {
+  background:var(--dark);
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+.nav-inner {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-height:72px;
+  gap:20px;
+}
+.logo { font-size:1.35rem; font-weight:bold; }
+.logo span { color:var(--gold); }
+.nav-links { display:flex; gap:22px; align-items:center; }
+.nav-links a:hover { color:var(--gold); }
+.menu-btn {
+  display:none;
+  background:none;
+  border:1px solid #ffffff66;
+  color:white;
+  padding:7px 12px;
+  border-radius:7px;
+}
+.hero {
+  min-height:590px;
+  display:flex;
+  align-items:center;
+  color:white;
+  background:
+    linear-gradient(90deg,rgba(8,35,24,.85),rgba(8,35,24,.28)),
+    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=85")
+    center/cover;
+}
+.hero-content { max-width:720px; padding:80px 0; }
+.eyebrow {
+  text-transform:uppercase;
+  letter-spacing:3px;
+  color:var(--gold);
+  font-weight:bold;
+  font-size:.8rem;
+}
+h1 { font-size:clamp(2.5rem,6vw,5rem); line-height:1.08; margin:18px 0; }
+.hero p { font-size:1.12rem; max-width:620px; color:#f2f4ef; }
+.btn {
+  display:inline-block;
+  padding:12px 21px;
+  border:0;
+  border-radius:7px;
+  background:var(--green);
+  color:white;
+  font-weight:bold;
+  transition:.2s;
+}
+.btn:hover { transform:translateY(-2px); background:#246847; }
+.btn-gold { background:var(--gold); color:var(--dark); }
+.hero .btn { margin:25px 10px 0 0; }
+.stats {
+  background:var(--green);
+  color:white;
+  padding:25px 0;
+}
+.stats-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  text-align:center;
+  gap:18px;
+}
+.stat strong { display:block; color:var(--gold); font-size:1.6rem; }
+section { padding:75px 0; }
+.section-heading { text-align:center; margin-bottom:35px; }
+.section-heading h2 { font-size:clamp(1.8rem,4vw,2.7rem); color:var(--green); }
+.section-heading p { color:var(--muted); max-width:680px; margin:10px auto 0; }
+.dest-controls {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:30px;
+}
+.dest-controls input {
+  width:min(340px,100%);
+  padding:12px;
+  border:1px solid #d4dcd3;
+  border-radius:7px;
+  background:white;
+}
+.filter-btn {
+  border:1px solid #d1dbd2;
+  border-radius:25px;
+  padding:9px 16px;
+  background:white;
+}
+.filter-btn.active { background:var(--green); color:white; }
+.destination-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+.card {
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 5px 22px #1b392010;
+  transition:transform .2s;
+}
+.card:hover { transform:translateY(-5px); }
+.card img { width:100%; height:220px; object-fit:cover; display:block; }
+.card-body { padding:20px; }
+.tag {
+  color:var(--green);
+  font-size:.78rem;
+  font-weight:bold;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.card h3 { margin:8px 0; font-size:1.25rem; }
+.card p { color:var(--muted); font-size:.95rem; }
+.card .learn { display:inline-block; color:var(--green); font-weight:bold; margin-top:14px; }
+.no-results { grid-column:1/-1; text-align:center; padding:35px; }
+.about-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:45px;
+  align-items:center;
+}
+.about-img { width:100%; height:420px; object-fit:cover; border-radius:14px; }
+.about-copy h2 { font-size:2.3rem; color:var(--green); line-height:1.2; margin:10px 0 20px; }
+.about-copy p { margin-bottom:15px; color:var(--muted); }
+.fact-list { list-style:none; margin:18px 0; }
+.fact-list li { padding:7px 0; }
+.fact-list li::before { content:"✓ "; color:var(--green); font-weight:bold; }
+.soft { background:#edf1e8; }
+.experience-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+.experience {
+  background:white;
+  padding:26px;
+  border-radius:12px;
+  border-bottom:4px solid var(--gold);
+}
+.experience .emoji { font-size:2rem; }
+.experience h3 { color:var(--green); margin:10px 0; }
+.experience p { color:var(--muted); }
+.package-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+.package {
+  padding:28px;
+  background:white;
+  border:1px solid #e4e7dd;
+  border-radius:12px;
+}
+.package h3 { color:var(--green); font-size:1.35rem; }
+.package .days { color:#9a712b; font-weight:bold; margin:5px 0 15px; }
+.package ul { padding-left:20px; margin:15px 0 23px; color:var(--muted); }
+.planner {
+  max-width:760px;
+  margin:auto;
+  background:white;
+  border-radius:14px;
+  padding:30px;
+  box-shadow:0 5px 25px #1b392010;
+}
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.field label { display:block; font-weight:bold; margin-bottom:6px; }
+.field input,.field select {
+  width:100%;
+  border:1px solid #d4dcd3;
+  padding:12px;
+  border-radius:7px;
+  background:white;
+}
+.full { grid-column:1/-1; }
+#itinerary-result {
+  display:none;
+  margin-top:24px;
+  padding:20px;
+  background:#edf5eb;
+  border-radius:8px;
+}
+#itinerary-result h3 { color:var(--green); margin-bottom:12px; }
+#itinerary-result li { margin:8px 0 8px 20px; }
+.travel-info {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:22px;
+}
+.info-box { background:white; padding:25px; border-radius:12px; }
+.info-box h3 { color:var(--green); margin-bottom:12px; }
+.info-box p { margin:8px 0; color:var(--muted); }
+.cta {
+  background:var(--green);
+  color:white;
+  text-align:center;
+  padding:60px 20px;
+}
+.cta h2 { font-size:2rem; margin-bottom:12px; }
+.cta p { max-width:650px; margin:0 auto 20px; color:#e0e8e0; }
+footer { background:var(--dark); color:white; padding:35px 0; }
+.footer-grid {
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:25px;
+}
+footer h3 { color:var(--gold); margin-bottom:12px; }
+footer a { display:block; margin:7px 0; color:#d5ded6; }
+footer a:hover { color:var(--gold); }
+.copyright { border-top:1px solid #ffffff25; margin-top:25px; padding-top:18px; color:#b9c6bc; font-size:.88rem; }
+
+@media(max-width:850px) {
+  .nav-links {
+    display:none;
+    position:absolute;
+    top:72px;
+    left:0;
+    right:0;
+    background:var(--dark);
+    padding:20px;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .nav-links.open { display:flex; }
+  .menu-btn { display:block; }
+  .destination-grid,.experience-grid,.package-grid { grid-template-columns:repeat(2,1fr); }
+  .about-grid { grid-template-columns:1fr; }
+  .about-img { height:330px; }
+}
+@media(max-width:560px) {
+  .hero { min-height:520px; }
+  .stats-grid { grid-template-columns:repeat(2,1fr); }
+  .destination-grid,.experience-grid,.package-grid,.travel-info,.footer-grid,.form-grid { grid-template-columns:1fr; }
+  .full { grid-column:auto; }
+  section { padding:55px 0; }
+  .planner { padding:20px; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="#home" class="logo">Explore <span>Assam</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation"
+      aria-expanded="false">☰ Menu</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#culture">Culture</a>
+      <a href="#packages">Tour Packages</a>
+      <a href="#planner">Trip Planner</a>
+      <a href="#travel-info">Travel Guide</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="container hero-content">
+    <div class="eyebrow">Discover Northeast India</div>
+    <h1>Assam: Where Nature Meets Tradition</h1>
+    <p>
+      Explore endless tea gardens, the mighty Brahmaputra, rare wildlife,
+      ancient temples and the warm hospitality of Assam.
+      Your unforgettable journey starts here.
+    </p>
+    <a class="btn btn-gold" href="#destinations">Explore Destinations →</a>
+    <a class="btn" href="#planner">Plan Your Trip</a>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="container stats-grid">
+    <div class="stat"><strong>35</strong>Districts (check latest official count)</div>
+    <div class="stat"><strong>UNESCO</strong>Natural & cultural heritage</div>
+    <div class="stat"><strong>Tea</strong>Famous tea gardens</div>
+    <div class="stat"><strong>Bihu</strong>Festival of Assam</div>
+  </div>
+</div>
+
+<section id="destinations">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">Places to discover</div>
+      <h2>Popular Destinations in Assam</h2>
+      <p>From wildlife safaris to river islands and sacred temples, discover
+        places that make Assam special.</p>
+    </div>
+
+    <div class="dest-controls">
+      <input type="search" id="searchInput"
+        placeholder="Search destinations..." aria-label="Search destinations">
+      <button class="filter-btn active" data-filter="all">All Places</button>
+      <button class="filter-btn" data-filter="nature">Nature</button>
+      <button class="filter-btn" data-filter="culture">Culture</button>
+      <button class="filter-btn" data-filter="spiritual">Spiritual</button>
+      <button class="filter-btn" data-filter="history">History</button>
+    </div>
+
+    <div class="destination-grid" id="destinationGrid">
+
+      <article class="card" data-category="nature" data-name="kaziranga national park wildlife rhino">
+        <img src="https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=900&q=80"
+          alt="Wildlife in a natural habitat" loading="lazy">
+        <div class="card-body">
+          <div class="tag">Wildlife & Nature</div>
+          <h3>Kaziranga National Park</h3>
+          <p>Famous for the greater one-horned rhinoceros, grasslands,
+            wetlands and wildlife safaris. A UNESCO World Heritage Site.</p>
+          <a class="learn" href="https://kaziranga.nptr.in/" target="_blank" rel="noopener">Park information ↗</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="culture" data-name="majuli river island satra culture">
+        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80"
+          alt="Scenic natural landscape" loading="lazy">
+        <div class="card-body">
+          <div class="tag">Island & Culture</div>
+          <h3>Majuli</h3>
+          <p>A remarkable Brahmaputra river island known for its satras,
+            Neo-Vaishnavite traditions, mask-making and village life.</p>
+          <a class="learn" href="https://tourism.assam.gov.in/" target="_blank" rel="noopener">Travel information ↗</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="spiritual" data-name="kamakhya temple guwahati shakti peeth">
+        <img src="https://images.unsplash.com/photo-1606293926075-69a00dbfde81?auto=format&fit=crop&w=900&q=80"
+          alt="Traditional Indian temple architecture" loading="lazy">
+        <div class="card-body">
+          <div class="tag">Spiritual</div>
+          <h3>Kamakhya Temple</h3>
+          <p>An important Shakti Peetha on Nilachal Hill in Guwahati.
+            The Ambubachi Mela attracts devotees from many regions.</p>
+          <a class="learn" href="https://tourism.assam.gov.in/" target="_blank" rel="noopener">Visitor information ↗</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="history" data-name="sivasagar shivadol ahom monuments">
+        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=900&q=80"
+          alt="Historic Indian architecture" loading="lazy">
+        <div class="card-body">
+          <div class="tag">History</div>
+          <h3>Sivasagar</h3>
+          <p>Explore the legacy of the Ahom kingdom through historic
+            monuments, tanks, palaces and the famous Shivadol temple.</p>
+          <a class="learn" href="https://tourism.assam.gov.in/" target="_blank" rel="noopener">Explore Assam tourism ↗</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="nature" data-name="manas national park tiger elephant forest">
+        <img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=900&q=80"
+          alt="Green forest landscape" loading="lazy">
+        <div class="card-body">
+          <div class="tag">Wildlife & Nature</div>
+          <h3>Manas National Park</h3>
+          <p>A UNESCO World Heritage Site with rich biodiversity,
+            forest landscapes and rare wildlife near the Bhutan border.</p>
+          <a class="learn" href="https://whc.unesco.org/en/list/338/" target="_blank" rel="noopener">UNESCO details ↗</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="nature" data-name="haflong dima hasao hill station lake">
+        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80"
+          alt="Lake surrounded by green hills" loading="lazy">
+        <div class="card-body">
+          <div class="tag">Hills & Nature</div>
+          <h3>Haflong</h3>
+          <p>Enjoy hill scenery, a relaxed atmosphere and the landscapes
+            of Dima Hasao, one of Assam's beautiful hill regions.</p>
+          <a class="learn" href="https://tourism.assam.gov.in/" target="_blank" rel="noopener">Plan a visit ↗</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="nature" data-name="jorhat tea gardens tokai">
+        <img src="https://images.unsplash.com/photo-1563911892437-1feda0179e1b?auto=format&fit=crop&w=900&q=80"
+          alt="Tea plantation landscape" loading="lazy">
+        <div class="card-body">
+          <div class="tag">Tea Tourism</div>
+          <h3>Jorhat & Tea Gardens</h3>
+          <p>Discover Assam's tea heritage, lush plantations and the
+            traditions behind one of India's best-known teas.</p>
+          <a class="learn" href="https://tourism.assam.gov.in/" target="_blank" rel="noopener">Travel information ↗</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="history" data-name="rang ghar sibsagar ahom architecture">
+        <img src="https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=900&q=80"
+          alt="Historic architecture" loading="lazy">
+        <div class="card-body">
+          <div class="tag">Heritage</div>
+          <h3>Rang Ghar</h3>
+          <p>A distinctive Ahom-era pavilion near Sivasagar, associated
+            with royal entertainment and traditional sporting events.</p>
+          <a class="learn" href="https://tourism.assam.gov.in/" target="_blank" rel="noopener">Explore heritage ↗</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="nature" data-name="guwahati brahmaputra river cruise">
+        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80"
+          alt="River and green landscape" loading="lazy">
+        <div class="card-body">
+          <div class="tag">River & City</div>
+          <h3>Brahmaputra River</h3>
+          <p>Experience the river's vast landscapes, riverfront views
+            and boat or cruise trips offered by local operators.</p>
+          <a class="learn" href="https://tourism.assam.gov.in/" target="_blank" rel="noopener">Discover experiences ↗</a>
+        </div>
+      </article>
+
+    </div>
+    <p id="emptyMessage" class="no-results" hidden>No destinations found. Try another search.</p>
+  </div>
+</section>
+
+<section class="soft" id="about">
+  <div class="container about-grid">
+    <img class="about-img"
+      src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=85"
+      alt="Sunrise over a natural landscape" loading="lazy">
+    <div class="about-copy">
+      <div class="eyebrow">Welcome to Assam</div>
+      <h2>The Land of the Red River and Blue Hills</h2>
+      <p>Assam is a northeastern Indian state known for the Brahmaputra
+        Valley, tea plantations, biodiversity, vibrant traditions and
+        diverse communities.</p>
+      <p>Whether you love adventure, history, spirituality, wildlife or
+        food, Assam offers many ways to explore at your own pace.</p>
+      <ul class="fact-list">
+        <li>Capital: Dispur</li>
+        <li>Major city and gateway: Guwahati</li>
+        <li>Major river: Brahmaputra</li>
+        <li>Principal language: Assamese, alongside many other languages</li>
+        <li>Famous products: Assam tea, Muga silk and traditional crafts</li>
+      </ul>
+      <a class="btn" href="#travel-info">Travel Guide</a>
+    </div>
+  </div>
+</section>
+
+<section id="culture">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">Traditions & experiences</div>
+      <h2>Experience the Culture of Assam</h2>
+      <p>Discover local traditions, delicious food, celebrations and
+        handicrafts that reflect Assam's cultural richness.</p>
+    </div>
+    <div class="experience-grid">
+      <article class="experience">
+        <div class="emoji">🎉</div>
+        <h3>Bihu Festival</h3>
+        <p>Rongali, Kongali and Bhogali Bihu mark different stages of
+          the agricultural calendar through dance, music and community celebrations.</p>
+      </article>
+      <article class="experience">
+        <div class="emoji">🍛</div>
+        <h3>Assamese Cuisine</h3>
+        <p>Try rice, khar, tenga, pitika, seasonal vegetables and pitha.
+          Food traditions vary across communities and regions.</p>
+      </article>
+      <article class="experience">
+        <div class="emoji">🧵</div>
+        <h3>Muga & Eri Silk</h3>
+        <p>Learn about Assam's silk heritage and traditional weaving.
+          Look for genuine local products from responsible sellers.</p>
+      </article>
+      <article class="experience">
+        <div class="emoji">🍃</div>
+        <h3>Tea Heritage</h3>
+        <p>Visit permitted tea estates, learn about tea production
+          and enjoy Assam's celebrated tea culture.</p>
+      </article>
+      <article class="experience">
+        <div class="emoji">🎭</div>
+        <h3>Sattriya & Satra Traditions</h3>
+        <p>Explore classical Sattriya dance, devotional music, theatre
+          and the cultural institutions of the Vaishnavite tradition.</p>
+      </article>
+      <article class="experience">
+        <div class="emoji">🦏</div>
+        <h3>Wildlife & Nature</h3>
+        <p>Experience guided wildlife tourism while respecting protected
+          areas, local communities and animal habitats.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="packages">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">Suggested holidays</div>
+      <h2>Explore Assam Tour Packages</h2>
+      <p>These are sample itineraries, not confirmed commercial packages.
+        Transport, accommodation, entry fees and guides cost extra.</p>
+    </div>
+    <div class="package-grid">
+      <article class="package">
+        <h3>Guwahati Getaway</h3>
+        <div class="days">3 Days / 2 Nights</div>
+        <p>A short introduction to the gateway city of Assam.</p>
+        <ul>
+          <li>Kamakhya Temple</li>
+          <li>Umananda Temple, subject to ferry availability</li>
+          <li>Brahmaputra riverfront</li>
+          <li>Local Assamese food</li>
+        </ul>
+        <button class="btn choose-package" data-days="3">Plan This Trip</button>
+      </article>
+      <article class="package">
+        <h3>Wildlife & Tea</h3>
+        <div class="days">5 Days / 4 Nights</div>
+        <p>A nature-focused journey through central and upper Assam.</p>
+        <ul>
+          <li>Guwahati arrival</li>
+          <li>Kaziranga safari, subject to availability</li>
+          <li>Tea garden experience</li>
+          <li>Local markets and regional cuisine</li>
+        </ul>
+        <button class="btn choose-package" data-days="5">Plan This Trip</button>
+      </article>
+      <article class="package">
+        <h3>Assam Discovery</h3>
+        <div class="days">7 Days / 6 Nights</div>
+        <p>A longer itinerary combining culture, nature and heritage.</p>
+        <ul>
+          <li>Guwahati and Kamakhya</li>
+          <li>Kaziranga National Park</li>
+          <li>Jorhat and Majuli, if transport permits</li>
+          <li>Assamese culture and food</li>
+        </ul>
+        <button class="btn choose-package" data-days="7">Plan This Trip</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="planner">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">Build your itinerary</div>
+      <h2>Plan Your Assam Trip</h2>
+      <p>Select your trip length and interests to create a simple suggested
+        itinerary. Confirm travel times and availability before departure.</p>
+    </div>
+    <div class="planner">
+      <form id="tripForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="start">Starting city</label>
+            <select id="start">
+              <option>Guwahati</option>
+              <option>Jorhat</option>
+              <option>Dibrugarh</option>
+              <option>Silchar</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="days">Trip duration</label>
+            <select id="days">
+              <option value="3">3 days</option>
+              <option value="5" selected>5 days</option>
+              <option value="7">7 days</option>
+              <option value="10">10 days</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="interest">Main interest</label>
+            <select id="interest">
+              <option value="nature">Wildlife & Nature</option>
+              <option value="culture">Culture & Food</option>
+              <option value="spiritual">Temples & Spirituality</option>
+              <option value="history">History & Heritage</option>
+              <option value="mixed">A little of everything</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="budget">Budget per person (INR)</label>
+            <select id="budget">
+              <option value="low">Budget-friendly</option>
+              <option value="medium" selected>Moderate</option>
+              <option value="high">Comfortable</option>
+            </select>
+          </div>
+          <div class="field full">
+            <button class="btn" type="submit">Generate My Itinerary</button>
+          </div>
+        </div>
+      </form>
+      <div id="itinerary-result" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="travel-info">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">Plan smart</div>
+      <h2>Essential Assam Travel Guide</h2>
+      <p>Helpful information to prepare for a smooth and enjoyable journey.</p>
+    </div>
+    <div class="travel-info">
+      <div class="info-box">
+        <h3>Best Time to Visit</h3>
+        <p><strong>October–April:</strong> Often comfortable for sightseeing
+          and many outdoor activities.</p>
+        <p><strong>May–September:</strong> Rainy conditions may affect
+          roads, river travel and national park access.</p>
+        <p>Safari seasons and opening dates vary. Check official notices
+          before booking.</p>
+      </div>
+      <div class="info-box">
+        <h3>How to Reach Assam</h3>
+        <p><strong>By air:</strong> Guwahati's Lokpriya Gopinath Bordoloi
+          International Airport is a major gateway.</p>
+        <p><strong>By train:</strong> Guwahati and other towns have railway
+          connections. Check schedules for your route.</p>
+        <p><strong>By road:</strong> Buses, taxis and private vehicles
+          connect many destinations; travel time varies.</p>
+      </div>
+      <div class="info-box">
+        <h3>Local Transport</h3>
+        <p>Use taxis, buses, app-based transport where available, and
+          local shared vehicles. Availability varies by location.</p>
+        <p>For Majuli and other river destinations, check ferry schedules,
+          weather conditions and the last return service.</p>
+      </div>
+      <div class="info-box">
+        <h3>Travel Tips</h3>
+        <p>Carry identification, booking confirmations, suitable footwear
+          and rain protection when needed.</p>
+        <p>Respect temple customs, ask before photographing people,
+          avoid littering and follow wildlife safety instructions.</p>
+        <p>During monsoon or floods, check local advisories before travelling.</p>
+      </div>
+      <div class="info-box">
+        <h3>Food to Try</h3>
+        <p>Look for khar, masor tenga, aloo pitika, rice dishes,
+          pitha, laru and Assam tea.</p>
+        <p>Ask about ingredients and preparation if you have allergies
+          or dietary restrictions.</p>
+      </div>
+      <div class="info-box">
+        <h3>Useful Official Resources</h3>
+        <p><a class="learn" href="https://tourism.assam.gov.in/" target="_blank" rel="noopener">Assam Tourism ↗</a></p>
+        <p><a class="learn" href="https://www.incredibleindia.gov.in/" target="_blank" rel="noopener">Incredible India ↗</a></p>
+        <p><a class="learn" href="https://whc.unesco.org/" target="_blank" rel="noopener">UNESCO World Heritage ↗</a></p>
+        <p>Check official government advisories, transport operators
+          and park authorities for current rules and timings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="container">
+    <h2>Your Assam Adventure Awaits</h2>
+    <p>Discover a land of rivers, forests, tea gardens, ancient history
+      and living traditions. Start planning your journey today.</p>
+    <a class="btn btn-gold" href="#planner">Create Your Trip Plan</a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h3>Explore Assam</h3>
+        <p>A tourism website concept celebrating the landscapes,
+          heritage and culture of Assam, India.</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <a href="#destinations">Destinations</a>
+        <a href="#culture">Culture & Food</a>
+        <a href="#packages">Tour Packages</a>
+        <a href="#planner">Trip Planner</a>
+      </div>
+      <div>
+        <h3>Resources</h3>
+        <a href="https://tourism.assam.gov.in/" target="_blank" rel="noopener">Assam Tourism</a>
+        <a href="https://www.incredibleindia.gov.in/" target="_blank" rel="noopener">Incredible India</a>
+        <a href="#travel-info">Travel Guide</a>
+      </div>
+    </div>
+    <div class="copyright">
+      © <span id="year"></span> Explore Assam. Educational website project.
+      Images load from external services. Confirm all travel information independently.
+    </div>
+  </div>
+</footer>
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+  const isOpen = navLinks.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", String(isOpen));
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+  });
+});
+
+// Destination search and category filters
+const searchInput = document.getElementById("searchInput");
+const filterButtons = document.querySelectorAll(".filter-btn");
+const destinationCards = document.querySelectorAll("#destinationGrid .card");
+const emptyMessage = document.getElementById("emptyMessage");
+let activeFilter = "all";
+
+function filterDestinations() {
+  const query = searchInput.value.toLowerCase().trim();
+  let visibleCount = 0;
+
+  destinationCards.forEach(card => {
+    const category = card.dataset.category;
+    const name = card.dataset.name;
+    const text = card.innerText.toLowerCase();
+    const matchesCategory = activeFilter === "all" || category === activeFilter;
+    const matchesSearch = name.includes(query) || text.includes(query);
+    const visible = matchesCategory && matchesSearch;
+
+    card.hidden = !visible;
+    if (visible) visibleCount++;
+  });
+
+  emptyMessage.hidden = visibleCount !== 0;
+}
+
+filterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    activeFilter = button.dataset.filter;
+
+    filterButtons.forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    filterDestinations();
+  });
+});
+
+searchInput.addEventListener("input", filterDestinations);
+
+// Suggested itinerary builder
+const plans = {
+  nature: [
+    "Explore Kaziranga National Park and its surroundings.",
+    "Enjoy a guided wildlife experience, subject to availability.",
+    "Visit a tea garden or nature area.",
+    "Allow travel time between destinations.",
+    "Enjoy a relaxed local food and market visit."
+  ],
+  culture: [
+    "Explore Guwahati's markets and local cuisine.",
+    "Learn about Assamese weaving and traditional crafts.",
+    "Visit Majuli and its satras if transport connections allow.",
+    "Try regional dishes and Assamese tea.",
+    "Discover a local cultural performance if available."
+  ],
+  spiritual: [
+    "Visit Kamakhya Temple and Nilachal Hill.",
+    "Explore other temples and sacred sites in Guwahati.",
+    "Allow time for queues and temple visiting rules.",
+    "Explore local traditions and regional food.",
+    "Keep an extra day for travel or rest."
+  ],
+  history: [
+    "Explore heritage attractions in Guwahati.",
+    "Travel towards Sivasagar if time permits.",
+    "Visit Ahom-era monuments such as Rang Ghar.",
+    "Discover local history and traditional crafts.",
+    "Keep sufficient time for return travel."
+  ],
+  mixed: [
+    "Explore Guwahati and Kamakhya Temple.",
+    "Travel to Kaziranga if conditions and time permit.",
+    "Enjoy wildlife or a nature experience.",
+    "Discover tea culture and local food.",
+    "Explore heritage or village experiences.",
+    "Visit another region if transport connections allow.",
+    "Keep a flexible day for travel and rest."
+  ]
+};
+
+document.getElementById("tripForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const start = document.getElementById("start").value;
+  const days = Number(document.getElementById("days").value);
+  const interest = document.getElementById("interest").value;
+  const budget = document.getElementById("budget").value;
+  const result = document.getElementById("itinerary-result");
+
+  let activities = plans[interest].slice(0, days);
+
+  while (activities.length < days) {
+    activities.push(
+      "Flexible day: explore a nearby attraction, enjoy local food or rest."
+    );
+  }
+
+  const budgetText = {
+    low: "Choose guesthouses, local food and public or shared transport where practical.",
+    medium: "Consider comfortable accommodation, a mix of local transport and selected guided activities.",
+    high: "Consider private transfers and more comfortable accommodation; confirm prices directly."
+  };
+
+  result.replaceChildren();
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Your Suggested " + days + "-Day Assam Itinerary";
+  result.appendChild(heading);
+
+  const intro = document.createElement("p");
+  intro.textContent = "Starting point: " + start +
+    ". Budget style: " + budget + ".";
+  result.appendChild(intro);
+
+  const list = document.createElement("ol");
+  activities.forEach((activity, index) => {
+    const item = document.createElement("li");
+    item.textContent = "Day " + (index + 1) + ": " + activity;
+    list.appendChild(item);
+  });
+  result.appendChild(list);
+
+  const note = document.createElement("p");
+  note.style.marginTop = "14px";
+  note.textContent = "Budget tip: " + budgetText[budget];
+  result.appendChild(note);
+
+  const warning = document.createElement("p");
+  warning.style.marginTop = "10px";
+  warning.textContent =
+    "This is a sample plan, not a booking. Distances, weather, opening dates, safari permits, ferry schedules and costs must be checked before travel.";
+  result.appendChild(warning);
+
+  result.style.display = "block";
+  result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+});
+
+// Package buttons preselect the requested duration
+document.querySelectorAll(".choose-package").forEach(button => {
+  button.addEventListener("click", () => {
+    document.getElementById("days").value = button.dataset.days;
+    document.getElementById("planner").scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
